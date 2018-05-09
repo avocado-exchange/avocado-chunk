@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"math/rand"
@@ -63,15 +62,12 @@ func addAll(req *http.Request) {
 
 	for k, v := range f.Chunks {
 		memory.Data[k] = v
-		fmt.Printf("Storing chunk with hash %x\n", k)
+		fmt.Printf("Storing chunk with hash %s\n", k)
 	}
 }
 
-func getChunk(hash string) []byte {
-	key, _ := hex.DecodeString(hash)
-	fmt.Printf("Returning %x\n", string(memory.Data[string(key)]))
-
-	return memory.Data[string(key)]
+func getChunk(key string) []byte {
+	return memory.Data[key]
 }
 
 func fileListener() {
