@@ -97,9 +97,13 @@ func fn(data []interface{}) error {
 
 	ran := uint32(rand.Int31())
 
-	c.Transact("chunkServerSubmitRandomness", myAddr, ran, songIndex)
+    s, err := c.Transact("chunkServerSubmitRandomness", myAddr, ran, songIndex)
+    if (err != nil) {
+        panic(err)
+    }
 
 	fmt.Printf("Submitted rand for %d\n", songIndex)
+	fmt.Printf("Tx hash %s\n", s)
 
 	prevSubs[songIndex] = struct{}{}
 
